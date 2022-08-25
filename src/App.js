@@ -11,34 +11,19 @@ const App = () => {
   };
 
   const addTask = () => {
-    if (newTask.trim() === '') return;
-    setTasks((prevTask) => {
-      return [...prevTask, { id: uuidv4(), text: newTask, complete: false }];
-    });
+    setTasks((prevTask) => [...prevTask, { id: uuidv4(), text: newTask, complete: false }]);
     setNewTask('');
   };
 
   const completeTask = (id) => {
     setTasks((prevTask) =>
-      prevTask.map((task) => {
-        if (task.id === id) {
-          return { ...task, complete: true };
-        } else {
-          return task;
-        }
-      })
+      prevTask.map((task) => (task.id === id ? { ...task, complete: true } : task))
     );
   };
 
   const undoTask = (id) => {
     setTasks((prevTask) =>
-      prevTask.map((task) => {
-        if (task.id === id) {
-          return { ...task, complete: false };
-        } else {
-          return task;
-        }
-      })
+      prevTask.map((task) => (task.id === id ? { ...task, complete: false } : task))
     );
   };
 

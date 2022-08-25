@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import AddTodo from './components/AddTodo';
+import TodoList from './components/TodoList';
 const App = () => {
   const [newTask, setNewTask] = useState('');
   const [tasks, setTasks] = useState([]);
@@ -11,32 +13,48 @@ const App = () => {
   const addTask = () => {
     if (newTask.trim() === '') return;
     setTasks((prevTask) => {
-      return [...prevTask, { id: uuidv4(), text: newTask }];
+      return [...prevTask, { id: uuidv4(), text: newTask, complete: false }];
     });
     setNewTask('');
+  };
+
+  const completeTask = (id) => {
+    setTasks((prevTask) =>
+      prevTask.map((task) => {
+        if (task.id === id) {
+          return { ...task, complete: true };
+        } else {
+          return task;
+        }
+      })
+    );
+  };
+
+  const undoTask = (id) => {
+    setTasks((prevTask) =>
+      prevTask.map((task) => {
+        if (task.id === id) {
+          return { ...task, complete: false };
+        } else {
+          return task;
+        }
+      })
+    );
   };
 
   const removeTask = (id) => {
     setTasks((prevTask) => prevTask.filter((task) => task.id !== id));
   };
+
   return (
-    <div className='main'>
-      <div className='addTask'>
-        <input type='text' onChange={handleChange} value={newTask} />
-        <button onClick={addTask} className='add-task-btn'>
-          Add task
-        </button>
-      </div>
-      <div className='tasks'>
-        {tasks.map((task) => (
-          <div className='task' key={task.id}>
-            {task.text}
-            <button className='delete-btn' onClick={() => removeTask(task.id)}>
-              x
-            </button>
-          </div>
-        ))}
-      </div>
+    <div className='app'>
+      <AddTodo handleChange={handleChange} onSubmit={addTask} value={newTask} />
+      <TodoList
+        tasks={tasks}
+        removeTask={removeTask}
+        completeTask={completeTask}
+        undoTask={undoTask}
+      />
     </div>
   );
 };

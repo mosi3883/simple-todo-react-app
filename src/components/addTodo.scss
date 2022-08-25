@@ -1,0 +1,46 @@
+.add-task {
+  background-color: #e2e8f0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 550px;
+  padding: 40px 70px;
+  margin: 0 auto;
+
+  &__input {
+    background-color: #eee;
+    border: 1px solid rgba($color: #000000, $alpha: 0.15);
+    border-radius: 7px;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    transition: all 0.25s;
+    font-size: inherit;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid rgba($color: #000000, $alpha: 0.8);
+    }
+  }
+
+  &__btn {
+    padding: 4px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 22px;
+    border: none;
+    background-color: #10b981;
+    color: #fff;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #15803d;
+    }
+  }
+}
